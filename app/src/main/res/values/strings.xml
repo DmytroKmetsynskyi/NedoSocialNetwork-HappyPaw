@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Щаслива Лапа</string>
+    <string name="login_button_text">Вхід</string>
+    <string name="register_button_text">Реєстрація</string>
+    <string name="reset_password_button_text">Відновити пароль</string>
+    <string name="email_hint">Елктронна пошта</string>
+    <string name="password_hint">Пароль</string>
+    <string name="short_description_hint">Опис</string>
+    <string name="chose_image_button_text">Оберіть зображення</string>
+    <string name="submit_article_button">Надіслати статтю</string>
+</resources>

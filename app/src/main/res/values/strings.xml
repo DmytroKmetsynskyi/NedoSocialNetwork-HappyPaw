@@ -3,9 +3,16 @@
     <string name="login_button_text">Вхід</string>
     <string name="register_button_text">Реєстрація</string>
     <string name="reset_password_button_text">Відновити пароль</string>
-    <string name="email_hint">Елктронна пошта</string>
+    <string name="email_hint">Пошта</string>
     <string name="password_hint">Пароль</string>
     <string name="short_description_hint">Опис</string>
     <string name="chose_image_button_text">Оберіть зображення</string>
     <string name="submit_article_button">Надіслати статтю</string>
+
+    <string name="text_on_reset_screen">Відновлення паролю</string>
+    <string name="text_on_register_screen">Реєстрація</string>
+    <string name="hello_login_screen">Вітання!</string>
+
+    <string name="go_to_reset_password_button_text"><u>Забули пароль?</u></string>
+    <string name="go_to_register_button_text"><u>Ще не маєте акаунту?\nЗареєструйтесь!</u></string>
 </resources>

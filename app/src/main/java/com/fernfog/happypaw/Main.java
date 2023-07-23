@@ -3,11 +3,14 @@ package com.fernfog.happypaw;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -41,7 +44,6 @@ public class Main extends AppCompatActivity {
     ImageButton logOutButton;
 
     ImageButton addArticleButton;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,24 +101,28 @@ public class Main extends AppCompatActivity {
 
     public void addCardToView(String shortText, String image, LinearLayout parentLayout) {
         CardView mCard = new CardView(this);
-        LinearLayout.LayoutParams mCardParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams mCardParams = new LinearLayout.LayoutParams(780, 1100);
 
         mCard.setLayoutParams(mCardParams);
 
         mCardParams.setMargins(16, 16, 16, 16);
-        mCard.setRadius(8.0f);
+        mCard.setRadius(22.0f);
         mCard.setCardElevation(4.0f);
         mCard.setContentPadding(16,16,16,16);
-
 
         LinearLayout insideCardLayout = new LinearLayout(this);
 
         insideCardLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         insideCardLayout.setOrientation(LinearLayout.VERTICAL);
 
-
         ImageView mImageView = new ImageView(this);
-        mImageView.setLayoutParams(new LinearLayout.LayoutParams(200, 200));
+        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(620, 620);
+
+        imageParams.gravity = Gravity.CENTER;
+
+        imageParams.setMargins(20,20,20,20);
+
+        mImageView.setLayoutParams(imageParams);
 
         storageReference.child("images/" + image).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -126,9 +132,16 @@ public class Main extends AppCompatActivity {
         });
 
         TextView mText = new TextView(this);
+        mText.setTextSize(15);
         mText.setText(shortText);
 
+        Typeface customFont = ResourcesCompat.getFont(this, R.font.overpass_light);
+        mText.setTypeface(customFont);
+
         insideCardLayout.addView(mImageView);
+
+        mText.setGravity(Gravity.CENTER);
+
         insideCardLayout.addView(mText);
 
         mCard.addView(insideCardLayout);

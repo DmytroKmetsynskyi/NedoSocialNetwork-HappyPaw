@@ -30,9 +30,6 @@
             android:name=".Register"
             android:exported="false" />
         <activity
-            android:name=".Login"
-            android:exported="false" />
-        <activity
             android:name=".Launch"
             android:exported="true">
             <intent-filter>
@@ -41,6 +38,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

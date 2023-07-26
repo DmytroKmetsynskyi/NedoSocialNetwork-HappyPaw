@@ -112,7 +112,7 @@ public class Main extends AppCompatActivity {
         ImageView mImageView = new ImageView(this);
         LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(620, 620);
         imageParams.gravity = Gravity.CENTER;
-        imageParams.setMargins(20,20,20,20);
+        imageParams.setMargins(20,55,20,20);
         mImageView.setScaleType(ImageView.ScaleType.CENTER);
         mImageView.setLayoutParams(imageParams);
 

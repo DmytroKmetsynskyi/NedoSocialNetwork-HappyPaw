@@ -28,7 +28,7 @@
 
 
 
-    <Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/articleToolBar"
 
         android:layout_width="match_parent"
@@ -67,6 +67,8 @@
             <ImageView
                 android:id="@+id/ImageView"
 
+                android:scaleType="center"
+
                 android:layout_width="175dp"
                 android:layout_height="175dp"
 
@@ -75,10 +77,10 @@
             <EditText
                 android:id="@+id/addShortDescription"
 
-                android:layout_gravity="center"
-
                 android:layout_width="230dp"
+
                 android:layout_height="130dp"
+                android:layout_gravity="center"
 
                 android:layout_marginTop="25dp"
 

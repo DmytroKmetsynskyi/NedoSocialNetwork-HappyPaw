@@ -2,7 +2,6 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/marmelad</item>
-        <item>@font/montserrat_light</item>
         <item>@font/overpass_light</item>
     </array>
 </resources>

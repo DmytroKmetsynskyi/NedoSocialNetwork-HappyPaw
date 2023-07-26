@@ -34,15 +34,11 @@ import java.util.Map;
 public class Main extends AppCompatActivity {
 
     FirebaseStorage storage = FirebaseStorage.getInstance("gs://nedosocialnewtork.appspot.com");
-
     StorageReference storageReference = storage.getReference();
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     LinearLayout parentLayout;
-
     ImageButton logOutButton;
-
     ImageButton addArticleButton;
 
     @Override
@@ -92,17 +88,14 @@ public class Main extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mIntent = new Intent(Main.this, CreateArticle.class);
                 startActivity(mIntent);
-
-                finish();
             }
         });
-
     }
 
     public void addCardToView(String shortText, String image, LinearLayout parentLayout) {
         CardView mCard = new CardView(this);
         LinearLayout.LayoutParams mCardParams = new LinearLayout.LayoutParams(780, 1100);
-
+        mCardParams.gravity = Gravity.CENTER;
         mCard.setLayoutParams(mCardParams);
 
         mCardParams.setMargins(16, 16, 16, 16);
@@ -115,13 +108,12 @@ public class Main extends AppCompatActivity {
         insideCardLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         insideCardLayout.setOrientation(LinearLayout.VERTICAL);
 
+
         ImageView mImageView = new ImageView(this);
         LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(620, 620);
-
         imageParams.gravity = Gravity.CENTER;
-
         imageParams.setMargins(20,20,20,20);
-
+        mImageView.setScaleType(ImageView.ScaleType.CENTER);
         mImageView.setLayoutParams(imageParams);
 
         storageReference.child("images/" + image).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -131,21 +123,17 @@ public class Main extends AppCompatActivity {
             }
         });
 
+
         TextView mText = new TextView(this);
         mText.setTextSize(15);
         mText.setText(shortText);
-
         Typeface customFont = ResourcesCompat.getFont(this, R.font.overpass_light);
         mText.setTypeface(customFont);
-
-        insideCardLayout.addView(mImageView);
-
         mText.setGravity(Gravity.CENTER);
 
+        insideCardLayout.addView(mImageView);
         insideCardLayout.addView(mText);
-
         mCard.addView(insideCardLayout);
-
         parentLayout.addView(mCard);
     }
 }

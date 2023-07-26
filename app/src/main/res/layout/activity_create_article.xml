@@ -4,7 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateArticle">
+    tools:context=".CreateArticle"
+
+    android:background="#D7D9D8" >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/add_article_cricle_2"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/add_article_cricle_1"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+
 
     <Toolbar
         android:id="@+id/articleToolBar"
@@ -12,11 +34,113 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
 
-        android:background="#6750a4"
+        android:background="#E0A42B"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/addArticleCard"
+
+        android:layout_width="325dp"
+        android:layout_height="540dp"
+
+        app:cardCornerRadius="9dp"
+
+        app:layout_constraintTop_toBottomOf="@id/articleToolBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/ImageView"
+
+                android:layout_width="175dp"
+                android:layout_height="175dp"
+
+                android:layout_gravity="center" />
+
+            <EditText
+                android:id="@+id/addShortDescription"
+
+                android:layout_gravity="center"
+
+                android:layout_width="230dp"
+                android:layout_height="130dp"
+
+                android:layout_marginTop="25dp"
+
+                android:background="@drawable/rounded_edit_add_text"
+                android:fontFamily="@font/overpass_light"
+                android:hint="@string/short_description_hint"
+                android:textAlignment="center"
+                android:textSize="12dp"
+
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/chooseImageFileButton"
+
+                android:layout_gravity="center"
+
+                android:layout_width="215dp"
+                android:layout_height="45dp"
+
+                android:layout_marginTop="25dp"
+
+                android:backgroundTint="#2B73E0"
+
+                android:fontFamily="@font/overpass_light"
+                android:text="@string/chose_image_button_text"
+                android:textAlignment="center"
+                android:textSize="12dp"
+
+                app:icon="@drawable/add_photo"
+                app:iconGravity="end"
+
+                app:cornerRadius="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loginPasswordField" />
+
+            <Button
+                android:id="@+id/submitArticleButton"
+
+                android:layout_gravity="center"
+
+                android:layout_width="215dp"
+                android:layout_height="45dp"
+
+                android:layout_marginTop="20dp"
+
+                android:backgroundTint="#2B73E0"
+
+                android:fontFamily="@font/overpass_light"
+                android:text="@string/submit_article_button"
+                android:textAlignment="center"
+                android:textSize="12dp"
+
+                app:cornerRadius="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loginPasswordField" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
     <ImageButton
         android:id="@+id/arBackToMainButton"
@@ -32,45 +156,64 @@
         app:layout_constraintTop_toTopOf="@id/articleToolBar"
         app:layout_constraintBottom_toBottomOf="@id/articleToolBar" />
 
-    <ImageView
-        android:id="@+id/ImageView"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        android:layout_marginTop="50dp"
+        android:text="@string/app_name"
 
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:fontFamily="@font/marmelad"
+        android:textSize="30dp"
+        android:textColor="#FFF"
+        android:textAlignment="center"
 
-        app:layout_constraintBottom_toTopOf="@id/addShortDescription"
-        app:layout_constraintTop_toBottomOf="@id/articleToolBar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_marginBottom="5dp"
 
-    <EditText
-        android:id="@+id/addShortDescription"
-
-        android:layout_width="300dp"
-
-        android:layout_height="100dp"
-
-        android:hint="@string/short_description_hint"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/articleToolBar" />
+        app:layout_constraintBottom_toBottomOf="@id/articleToolBar"
+        app:layout_constraintLeft_toLeftOf="@id/articleToolBar"
+        app:layout_constraintRight_toRightOf="@id/articleToolBar"
+        app:layout_constraintTop_toTopOf="@id/articleToolBar" />
 
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/chooseImageFileButton"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--&lt;!&ndash;     &#45;&#45;!>-->
+
+
+<!--    <com.google.android.material.button.MaterialButton
+
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_marginTop="20dp"
 
-        app:icon="@drawable/add_photo"
-        app:iconGravity="end"
+
 
         android:text="@string/chose_image_button_text"
 
@@ -78,7 +221,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
-<!--
+&lt;!&ndash;
     <Button
         android:id="@+id/chooseImageFileButton"
 
@@ -91,10 +234,10 @@
 
         app:layout_constraintTop_toBottomOf="@id/addShortDescription"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />-->
+        app:layout_constraintRight_toRightOf="parent" />&ndash;&gt;
 
     <Button
-        android:id="@+id/submitArticleButton"
+
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,6 +248,6 @@
 
         app:layout_constraintTop_toBottomOf="@id/chooseImageFileButton"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@
     <string name="password_hint">Пароль</string>
     <string name="short_description_hint">Опис</string>
     <string name="chose_image_button_text">Оберіть зображення</string>
-    <string name="submit_article_button">Надіслати статтю</string>
+    <string name="submit_article_button">Додати статтю</string>
 
     <string name="text_on_reset_screen">Відновлення паролю</string>
     <string name="text_on_register_screen">Реєстрація</string>

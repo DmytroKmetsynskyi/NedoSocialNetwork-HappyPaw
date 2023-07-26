@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -32,6 +34,8 @@ public class CreateArticle extends AppCompatActivity {
     StorageReference storageReference = storage.getReference();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
 
     public static final int PICK_IMAGE_FILE = 1;
 
@@ -80,6 +84,7 @@ public class CreateArticle extends AppCompatActivity {
                 Map<String, String> data = new HashMap<>();
                 data.put("image", imageRef.getName());
                 data.put("shortDescription", shortDescription.getText().toString());
+                data.put("user" , mUser.getEmail());
 
                 db.collection("articles").add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -94,7 +99,9 @@ public class CreateArticle extends AppCompatActivity {
     public void openFile() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("image/*");
+        String[] mimetypes = {"image/jpeg", "image/png", "image/jpg"};
+        intent.setType("*/*");
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
 
         startActivityForResult(intent, PICK_IMAGE_FILE);
     }

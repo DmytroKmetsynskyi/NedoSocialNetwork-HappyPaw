@@ -24,7 +24,6 @@ public class LoginOrRegister extends AppCompatActivity {
     Button submitLogin;
     EditText passwordField;
     EditText emailField;
-
     Button goToRegisterButton;
     Button resetPasswordButton;
 
@@ -46,8 +45,6 @@ public class LoginOrRegister extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mIntent = new Intent(LoginOrRegister.this, Register.class);
                 startActivity(mIntent);
-
-                finish();
             }
         });
 
@@ -56,8 +53,6 @@ public class LoginOrRegister extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mIntent = new Intent(LoginOrRegister.this, ResetPassword.class);
                 startActivity(mIntent);
-
-                finish();
             }
         });
 

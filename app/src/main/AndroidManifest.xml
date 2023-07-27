@@ -15,6 +15,9 @@
         android:theme="@style/Theme.HappyPaw"
         tools:targetApi="31">
         <activity
+            android:name=".AdminPart"
+            android:exported="false" />
+        <activity
             android:name=".CreateArticle"
             android:exported="false" />
         <activity

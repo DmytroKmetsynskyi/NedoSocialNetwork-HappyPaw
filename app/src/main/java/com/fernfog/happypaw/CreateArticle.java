@@ -81,10 +81,11 @@ public class CreateArticle extends AppCompatActivity {
                 StorageReference imageRef = storageReference.child("images/"+image.getLastPathSegment());
                 imageRef.putFile(image);
 
-                Map<String, String> data = new HashMap<>();
+                Map<String, Object> data = new HashMap<>();
                 data.put("image", imageRef.getName());
                 data.put("shortDescription", shortDescription.getText().toString());
                 data.put("user" , mUser.getEmail());
+                data.put("status", false);
 
                 db.collection("articles").add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

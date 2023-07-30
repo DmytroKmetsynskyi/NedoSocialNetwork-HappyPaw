@@ -28,7 +28,10 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
@@ -38,40 +41,28 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.osmdroid.views.MapView;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateArticle extends AppCompatActivity implements OnMapReadyCallback {
+public class CreateArticle extends AppCompatActivity {
 
     FirebaseStorage storage = FirebaseStorage.getInstance("gs://nedosocialnewtork.appspot.com");
-
     StorageReference storageReference = storage.getReference();
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     private FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-
     private FusedLocationProviderClient fusedLocationProviderClient;
-
     public static final int PICK_IMAGE_FILE = 1;
-
     ImageView mImage;
     MaterialButton chooseFileButton;
     Button submitButton;
     ImageButton backToMainScreenButton;
-
     EditText shortDescription;
-
     Uri image;
-
-    private GoogleMap mMap;
+    private MapView map = null;
+    Location userLocation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,12 +75,9 @@ public class CreateArticle extends AppCompatActivity implements OnMapReadyCallba
         backToMainScreenButton = findViewById(R.id.arBackToMainButton);
         shortDescription = findViewById(R.id.addShortDescription);
 
+        map = findViewById(R.id.map);
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
 
         backToMainScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +106,10 @@ public class CreateArticle extends AppCompatActivity implements OnMapReadyCallba
                 data.put("shortDescription", shortDescription.getText().toString());
                 data.put("user" , mUser.getEmail());
                 data.put("status", false);
+                data.put("latitudeOfAnimal", userLocation.getLatitude());
+                data.put("longitudeOfAnimal", userLocation.getLongitude());
+
+                Toast.makeText(getApplicationContext(), "Latitude: " + userLocation.getLatitude() + " Longitude: " + userLocation.getLongitude(), Toast.LENGTH_LONG).show();
 
                 db.collection("articles").add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -127,6 +119,31 @@ public class CreateArticle extends AppCompatActivity implements OnMapReadyCallba
                 });
             }
         });
+
+        if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        userLocation = location;
+
+                        com.fernfog.happypaw.Map mMap = new com.fernfog.happypaw.Map(R.id.map, location.getLatitude(), location.getLongitude(),
+                                getApplicationContext(), map, getResources().getDrawable(R.drawable.locationicon));
+
+                        mMap.initMap();
+                    } else {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        finish();
+                    }
+                }
+            });
+
+        } else {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
+            finish();
+        }
     }
 
     public void openFile() {
@@ -145,33 +162,5 @@ public class CreateArticle extends AppCompatActivity implements OnMapReadyCallba
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if (location != null) {
-                        mMap = googleMap;
-
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())));
-                        mMap.moveCamera(CameraUpdateFactory.zoomTo(17.0F));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
-
-                    } else {
-                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                        finish();
-                    }
-                }
-            });
-
-        } else {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
-            finish();
-        }
     }
 }

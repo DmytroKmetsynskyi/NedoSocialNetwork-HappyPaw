@@ -51,7 +51,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" >
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -70,15 +70,12 @@
 
                 android:orientation="vertical" >
 
-                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:tools="http://schemas.android.com/tools"
+                <org.osmdroid.views.MapView
                     android:layout_width="250dp"
                     android:layout_height="212dp"
-                    android:id="@+id/map"
-                    tools:context=".CreateArticle"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
 
-                    android:layout_gravity="center"/>
+                    android:id="@+id/map"
+                    android:layout_gravity="center" />
 
 
                 <ImageView
@@ -158,7 +155,7 @@
 
                 </LinearLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 </androidx.cardview.widget.CardView>
 

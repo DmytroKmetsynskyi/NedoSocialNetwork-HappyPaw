@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -66,8 +67,7 @@ public class Main extends AppCompatActivity {
 
                         addCardToView(shortText, image, parentLayout);
                     }
-                } else
-                    Log.w("query" , "Error getting documents", task.getException());
+                }
             }
         });
 
@@ -107,7 +107,6 @@ public class Main extends AppCompatActivity {
 
         insideCardLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         insideCardLayout.setOrientation(LinearLayout.VERTICAL);
-
 
         ImageView mImageView = new ImageView(this);
         LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(620, 620);

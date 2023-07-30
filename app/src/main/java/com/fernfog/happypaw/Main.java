@@ -2,14 +2,10 @@ package com.fernfog.happypaw;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,7 +22,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -42,20 +37,19 @@ public class Main extends AppCompatActivity {
     StorageReference storageReference = storage.getReference();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    LinearLayout layoutInScrollView;
+    LinearLayout parentLayout;
     ImageButton logOutButton;
     ImageButton addArticleButton;
-    ConstraintLayout parentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        layoutInScrollView = findViewById(R.id.layoutInScrollView);
-        parentLayout = findViewById(R.id.parentLayout);
+        logOutButton = findViewById(R.id.logOutButton);
+        addArticleButton = findViewById(R.id.addArticleButton);
 
-        initToolBar(parentLayout);
+        parentLayout = findViewById(R.id.parentLayout);
 
         db.collection("articles").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -64,13 +58,16 @@ public class Main extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Map<String, Object> map = document.getData();
 
-                        String shortText = (String) map.get("shortDescription");
-                        String image = (String) map.get("image");
-                        boolean status = (boolean) map.get("status");
+                        String key1 = "shortDescription";
+                        String key2 = "image";
 
-                        addCardToView(shortText, image, status, layoutInScrollView);
+                        String shortText = (String) map.get(key1);
+                        String image = (String) map.get(key2);
+
+                        addCardToView(shortText, image, parentLayout);
                     }
-                }
+                } else
+                    Log.w("query" , "Error getting documents", task.getException());
             }
         });
 
@@ -95,7 +92,7 @@ public class Main extends AppCompatActivity {
         });
     }
 
-    public void addCardToView(String shortText, String image, boolean status, LinearLayout parentLayout) {
+    public void addCardToView(String shortText, String image, LinearLayout parentLayout) {
         CardView mCard = new CardView(this);
         LinearLayout.LayoutParams mCardParams = new LinearLayout.LayoutParams(780, 1100);
         mCardParams.gravity = Gravity.CENTER;
@@ -111,6 +108,7 @@ public class Main extends AppCompatActivity {
         insideCardLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         insideCardLayout.setOrientation(LinearLayout.VERTICAL);
 
+
         ImageView mImageView = new ImageView(this);
         LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(620, 620);
         imageParams.gravity = Gravity.CENTER;
@@ -125,96 +123,17 @@ public class Main extends AppCompatActivity {
             }
         });
 
-        TextView descriptionText = new TextView(this);
-        descriptionText.setTextSize(15);
-        descriptionText.setText(shortText);
-        descriptionText.setGravity(Gravity.CENTER);
 
+        TextView mText = new TextView(this);
+        mText.setTextSize(15);
+        mText.setText(shortText);
         Typeface customFont = ResourcesCompat.getFont(this, R.font.overpass_light);
-
-        TextView statusText = new TextView(this);
-        statusText.setTextSize(20);
-        statusText.setGravity(Gravity.LEFT);
-        LinearLayout.LayoutParams statusTextParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        statusTextParams.leftMargin = 20;
-        statusText.setLayoutParams(statusTextParams);
-
-        descriptionText.setTypeface(customFont);
-        statusText.setTypeface(customFont);
-
-        int statusTextColor;
-
-        if (status) {
-            statusText.setText("ЗНАЙДЕНО");
-
-            statusTextColor = Color.parseColor("#32a852");
-            statusText.setTextColor(statusTextColor);
-        } else {
-            statusText.setText("ЩЕ НІ");
-
-            statusTextColor = Color.parseColor("#a83242");
-            statusText.setTextColor(statusTextColor);
-        }
+        mText.setTypeface(customFont);
+        mText.setGravity(Gravity.CENTER);
 
         insideCardLayout.addView(mImageView);
-        insideCardLayout.addView(descriptionText);
-        insideCardLayout.addView(statusText);
-
+        insideCardLayout.addView(mText);
         mCard.addView(insideCardLayout);
         parentLayout.addView(mCard);
-    }
-
-    public void initToolBar(ConstraintLayout parentLayout) {
-        ConstraintSet constraintSet = new ConstraintSet();
-
-        Toolbar topToolBar = new Toolbar(this);
-        topToolBar.setId(View.generateViewId());
-        Toolbar.LayoutParams topToolBarParams = new Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150);
-        topToolBar.setLayoutParams(topToolBarParams);
-        topToolBar.setBackgroundColor(Color.parseColor("#E0A42B"));
-        constraintSet.connect(topToolBar.getId(), ConstraintSet.TOP, R.id.parentLayout, ConstraintSet.TOP);
-        constraintSet.connect(topToolBar.getId(), ConstraintSet.LEFT, R.id.parentLayout, ConstraintSet.LEFT);
-        constraintSet.connect(topToolBar.getId(), ConstraintSet.RIGHT, R.id.parentLayout, ConstraintSet.RIGHT);
-
-        addArticleButton = new ImageButton(this);
-        addArticleButton.setId(View.generateViewId());
-        ViewGroup.LayoutParams addArticleButtonParams = new ViewGroup.LayoutParams(50,50);
-        addArticleButton.setLayoutParams(addArticleButtonParams);
-        addArticleButton.setBackgroundColor(Color.parseColor("#00FFFFFF"));
-        addArticleButton.setImageResource(R.drawable.add_circle);
-        constraintSet.connect(addArticleButton.getId(), ConstraintSet.BOTTOM, topToolBar.getId(), ConstraintSet.BOTTOM);
-        constraintSet.connect(addArticleButton.getId(), ConstraintSet.RIGHT, topToolBar.getId(), ConstraintSet.RIGHT);
-        constraintSet.connect(addArticleButton.getId(), ConstraintSet.TOP, topToolBar.getId(), ConstraintSet.TOP);
-
-        logOutButton = new ImageButton(this);
-        logOutButton.setId(View.generateViewId());
-        ViewGroup.LayoutParams logOutButtonParams = new ViewGroup.LayoutParams(50,50);
-        logOutButton.setLayoutParams(logOutButtonParams);
-        logOutButton.setBackgroundColor(Color.parseColor("#00FFFFFF"));
-        logOutButton.setImageResource(R.drawable.logout);
-        constraintSet.connect(logOutButton.getId(), ConstraintSet.BOTTOM, topToolBar.getId(), ConstraintSet.BOTTOM);
-        constraintSet.connect(logOutButton.getId(), ConstraintSet.LEFT, topToolBar.getId(), ConstraintSet.LEFT);
-        constraintSet.connect(logOutButton.getId(), ConstraintSet.TOP, topToolBar.getId(), ConstraintSet.TOP);
-
-        TextView toolBarText = new TextView(this);
-        toolBarText.setId(View.generateViewId());
-        toolBarText.setTextSize(30);
-        toolBarText.setText(R.string.app_name);
-        toolBarText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        toolBarText.setTextColor(Color.parseColor("#FFFFFF"));
-        Typeface customFont = ResourcesCompat.getFont(this, R.font.marmelad);
-        toolBarText.setTypeface(customFont);
-        ViewGroup.LayoutParams toolBarTextParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        toolBarText.setLayoutParams(toolBarTextParams);
-        constraintSet.connect(toolBarText.getId(), ConstraintSet.BOTTOM, topToolBar.getId(), ConstraintSet.BOTTOM);
-        constraintSet.connect(toolBarText.getId(), ConstraintSet.RIGHT, logOutButton.getId(), ConstraintSet.LEFT);
-        constraintSet.connect(toolBarText.getId(), ConstraintSet.LEFT, addArticleButton.getId(), ConstraintSet.RIGHT);
-        constraintSet.connect(toolBarText.getId(), ConstraintSet.TOP, topToolBar.getId(), ConstraintSet.TOP);
-
-        constraintSet.applyTo(parentLayout);
-        parentLayout.addView(topToolBar);
-        parentLayout.addView(addArticleButton);
-        parentLayout.addView(logOutButton);
-        parentLayout.addView(toolBarText);
     }
 }

@@ -62,7 +62,7 @@ public class CreateArticle extends AppCompatActivity implements OnMapReadyCallba
 
     public static final int PICK_IMAGE_FILE = 1;
 
-/*    ImageView mImage;*/
+    ImageView mImage;
     MaterialButton chooseFileButton;
     Button submitButton;
     ImageButton backToMainScreenButton;
@@ -73,23 +73,18 @@ public class CreateArticle extends AppCompatActivity implements OnMapReadyCallba
 
     private GoogleMap mMap;
 
-    double userLatitude = 0.0;
-    double userLongitude = 0.0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_article);
 
-/*        mImage = findViewById(R.id.ImageView);*/
+        mImage = findViewById(R.id.ImageView);
         chooseFileButton = findViewById(R.id.chooseImageFileButton);
         submitButton = findViewById(R.id.submitArticleButton);
         backToMainScreenButton = findViewById(R.id.arBackToMainButton);
         shortDescription = findViewById(R.id.addShortDescription);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        Context context = this;
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -132,8 +127,6 @@ public class CreateArticle extends AppCompatActivity implements OnMapReadyCallba
                 });
             }
         });
-
-
     }
 
     public void openFile() {
@@ -141,11 +134,16 @@ public class CreateArticle extends AppCompatActivity implements OnMapReadyCallba
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/jpeg");
         startActivityForResult(intent, PICK_IMAGE_FILE);
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == PICK_IMAGE_FILE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                image = data.getData();
+                Glide.with(getApplicationContext()).load(data.getData()).into(mImage);
+            }
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 

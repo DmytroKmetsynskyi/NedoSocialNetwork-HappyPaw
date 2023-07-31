@@ -20,8 +20,7 @@ public class Map {
     Context ctx;
     Drawable icon;
 
-    Map(int mapViewId, double latitude, double longitude, Context ctx, MapView map, Drawable icon) {
-        this.mapViewId = mapViewId;
+    Map(double latitude, double longitude, Context ctx, MapView map, Drawable icon) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.ctx = ctx;

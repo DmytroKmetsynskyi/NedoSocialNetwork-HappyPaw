@@ -57,7 +57,8 @@ public class CreateArticle extends AppCompatActivity {
     public static final int PICK_IMAGE_FILE = 1;
     ImageView mImage;
     MaterialButton chooseFileButton;
-    Button submitButton;
+    MaterialButton submitButton;
+    MaterialButton expandButton;
     ImageButton backToMainScreenButton;
     EditText shortDescription;
     Uri image;
@@ -75,7 +76,9 @@ public class CreateArticle extends AppCompatActivity {
         backToMainScreenButton = findViewById(R.id.arBackToMainButton);
         shortDescription = findViewById(R.id.addShortDescription);
 
-        map = findViewById(R.id.map);
+        expandButton = findViewById(R.id.expandMapButton);
+
+        /*map = findViewById(R.id.map);*/
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -120,6 +123,15 @@ public class CreateArticle extends AppCompatActivity {
             }
         });
 
+        expandButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullScreenMapDialog();
+            }
+        });
+
+
+
         if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
@@ -129,10 +141,9 @@ public class CreateArticle extends AppCompatActivity {
                     if (location != null) {
                         userLocation = location;
 
-                        com.fernfog.happypaw.Map mMap = new com.fernfog.happypaw.Map(R.id.map, location.getLatitude(), location.getLongitude(),
-                                getApplicationContext(), map, getResources().getDrawable(R.drawable.locationicon));
+                        /*com.fernfog.happypaw.Map mMap = new com.fernfog.happypaw.Map());
 
-                        mMap.initMap();
+                        mMap.initMap();*/
                     } else {
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                         finish();
@@ -144,6 +155,11 @@ public class CreateArticle extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
             finish();
         }
+    }
+
+    private void showFullScreenMapDialog() {
+        FullScreenMapDialogFragment dialogFragment = new FullScreenMapDialogFragment(userLocation.getLatitude(), userLocation.getLongitude(), getResources().getDrawable(R.drawable.locationicon));
+        dialogFragment.show(getSupportFragmentManager(), "FullScreenMapDialog");
     }
 
     public void openFile() {

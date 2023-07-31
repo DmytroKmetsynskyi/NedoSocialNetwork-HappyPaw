@@ -38,6 +38,38 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <ImageButton
+        android:id="@+id/arBackToMainButton"
+
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+
+        android:background="#00FFFFFF"
+
+        android:src="@drawable/arrow_back"
+
+        app:layout_constraintLeft_toLeftOf="@id/articleToolBar"
+        app:layout_constraintTop_toTopOf="@id/articleToolBar"
+        app:layout_constraintBottom_toBottomOf="@id/articleToolBar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/app_name"
+
+        android:fontFamily="@font/marmelad"
+        android:textSize="30dp"
+        android:textColor="#FFF"
+        android:textAlignment="center"
+
+        android:layout_marginBottom="5dp"
+
+        app:layout_constraintBottom_toBottomOf="@id/articleToolBar"
+        app:layout_constraintLeft_toLeftOf="@id/articleToolBar"
+        app:layout_constraintRight_toRightOf="@id/articleToolBar"
+        app:layout_constraintTop_toTopOf="@id/articleToolBar" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/addArticleCard"
 
@@ -51,35 +83,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" >
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="5dp"
-
-            android:layout_gravity="center" >
-
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
+
+                android:layout_gravity="center"
 
                 android:orientation="vertical" >
-
-                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    android:layout_width="250dp"
-                    android:layout_height="212dp"
-                    android:id="@+id/map"
-                    tools:context=".CreateArticle"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-
-                    android:layout_gravity="center"/>
-
 
                 <ImageView
                     android:id="@+id/ImageView"
@@ -99,7 +112,7 @@
                     android:layout_height="130dp"
                     android:layout_gravity="center"
 
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="10dp"
 
                     android:background="@drawable/rounded_edit_add_text"
                     android:fontFamily="@font/overpass_light"
@@ -110,6 +123,26 @@
                     android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/expandMapButton"
+
+                    android:layout_gravity="center"
+
+                    android:layout_width="215dp"
+                    android:layout_height="45dp"
+
+                    android:layout_marginTop="10dp"
+                    app:cornerRadius="8dp"
+                    android:backgroundTint="#2B73E0"
+
+                    android:fontFamily="@font/overpass_light"
+                    android:text="@string/expand_map_button_text"
+                    android:textAlignment="center"
+                    android:textSize="12dp"
+
+                    app:icon="@drawable/mapicon"
+                    app:iconGravity="end"/>
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/chooseImageFileButton"
 
                     android:layout_gravity="center"
@@ -117,7 +150,7 @@
                     android:layout_width="215dp"
                     android:layout_height="45dp"
 
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="10dp"
 
                     android:backgroundTint="#2B73E0"
 
@@ -129,12 +162,9 @@
                     app:icon="@drawable/add_photo"
                     app:iconGravity="end"
 
-                    app:cornerRadius="8dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/loginPasswordField" />
+                    app:cornerRadius="8dp" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/submitArticleButton"
 
                     android:layout_gravity="center"
@@ -142,58 +172,25 @@
                     android:layout_width="215dp"
                     android:layout_height="45dp"
 
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
 
                     android:backgroundTint="#2B73E0"
 
                     android:fontFamily="@font/overpass_light"
-                    android:text="@string/submit_article_button"
+                    android:text="@string/submit_article_button_text"
                     android:textAlignment="center"
                     android:textSize="12dp"
 
-                    app:cornerRadius="8dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/loginPasswordField" />
+                    app:icon="@drawable/doneicon"
+                    app:iconGravity="end"
 
-                </LinearLayout>
-
-        </ScrollView>
-
-</androidx.cardview.widget.CardView>
+                    app:cornerRadius="8dp" />
 
 
-<ImageButton
-android:id="@+id/arBackToMainButton"
 
-android:layout_width="50dp"
-android:layout_height="50dp"
+            </LinearLayout>
 
-android:background="#00FFFFFF"
-
-android:src="@drawable/arrow_back"
-
-app:layout_constraintLeft_toLeftOf="@id/articleToolBar"
-app:layout_constraintTop_toTopOf="@id/articleToolBar"
-app:layout_constraintBottom_toBottomOf="@id/articleToolBar" />
-
-<TextView
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-
-android:text="@string/app_name"
-
-android:fontFamily="@font/marmelad"
-android:textSize="30dp"
-android:textColor="#FFF"
-android:textAlignment="center"
-
-android:layout_marginBottom="5dp"
-
-app:layout_constraintBottom_toBottomOf="@id/articleToolBar"
-app:layout_constraintLeft_toLeftOf="@id/articleToolBar"
-app:layout_constraintRight_toRightOf="@id/articleToolBar"
-app:layout_constraintTop_toTopOf="@id/articleToolBar" />
+    </androidx.cardview.widget.CardView>
 
 
 

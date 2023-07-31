@@ -2,8 +2,6 @@ plugins {
     id 'com.android.application'
 
     id("com.google.gms.google-services")
-
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -32,8 +30,6 @@ android {
     }
 }
 
-apply plugin: 'com.android.application'
-
 dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
     implementation("com.google.firebase:firebase-analytics")
@@ -43,7 +39,8 @@ dependencies {
 
     implementation("com.google.firebase:firebase-auth")
 
-    implementation('com.google.android.gms:play-services-maps:18.1.0')
+    implementation ('org.osmdroid:osmdroid-android:6.1.16')
+
     implementation ('com.google.android.gms:play-services-location:21.0.1')
 
     implementation('androidx.core:core:1.7.0')

@@ -94,7 +94,7 @@ public class Main extends AppCompatActivity {
 
     public void addCardToView(String shortText, String image, LinearLayout parentLayout) {
         CardView mCard = new CardView(this);
-        LinearLayout.LayoutParams mCardParams = new LinearLayout.LayoutParams(780, 1100);
+        LinearLayout.LayoutParams mCardParams = new LinearLayout.LayoutParams(780, ViewGroup.LayoutParams.WRAP_CONTENT);
         mCardParams.gravity = Gravity.CENTER;
         mCard.setLayoutParams(mCardParams);
 

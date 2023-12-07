@@ -6,13 +6,16 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -60,11 +64,17 @@ public class Main extends AppCompatActivity {
 
                         String key1 = "shortDescription";
                         String key2 = "image";
+                        String key3 = "user";
 
                         String shortText = (String) map.get(key1);
                         String image = (String) map.get(key2);
+                        String email = (String) map.get(key3);
 
-                        addCardToView(shortText, image, parentLayout);
+                        Double latitude = (Double) map.get("latitudeOfAnimal");
+                        Double longitude = (Double) map.get("longitudeOfAnimal");
+
+
+                        addCardToView(shortText, image, parentLayout, latitude, longitude, email);
                     }
                 } else
                     Log.w("query" , "Error getting documents", task.getException());
@@ -92,7 +102,7 @@ public class Main extends AppCompatActivity {
         });
     }
 
-    public void addCardToView(String shortText, String image, LinearLayout parentLayout) {
+    public void addCardToView(String shortText, String image, LinearLayout parentLayout, double latitude, double longitude, String emailText_) {
         CardView mCard = new CardView(this);
         LinearLayout.LayoutParams mCardParams = new LinearLayout.LayoutParams(780, ViewGroup.LayoutParams.WRAP_CONTENT);
         mCardParams.gravity = Gravity.CENTER;
@@ -107,7 +117,6 @@ public class Main extends AppCompatActivity {
 
         insideCardLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         insideCardLayout.setOrientation(LinearLayout.VERTICAL);
-
 
         ImageView mImageView = new ImageView(this);
         LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(620, 620);
@@ -131,9 +140,45 @@ public class Main extends AppCompatActivity {
         mText.setTypeface(customFont);
         mText.setGravity(Gravity.CENTER);
 
+        MaterialButton mButton = new MaterialButton(this);
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFullScreenMapDialog(latitude, longitude);
+            }
+        });
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(525, 110);
+        layoutParams.gravity = Gravity.CENTER;
+
+        mButton.setBackgroundColor(Color.parseColor("#2B73E0"));
+        mButton.setText(R.string.expand_map_button_text);
+        mButton.setTextSize(12);
+        mButton.setTypeface(customFont);
+        mButton.setIcon(getDrawable(R.drawable.mapicon));
+        mButton.setIconGravity(MaterialButton.ICON_GRAVITY_END);
+        layoutParams.setMargins(0,10,0,0);
+        mButton.setCornerRadius(16);
+
+
+        TextView emailText = new TextView(this);
+        emailText.setTextColor(Color.parseColor("#777a80"));
+        emailText.setTextSize(10);
+        emailText.setText(emailText_);
+        emailText.setTypeface(customFont);
+        emailText.setGravity(Gravity.LEFT);
+
+        insideCardLayout.addView(emailText, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         insideCardLayout.addView(mImageView);
         insideCardLayout.addView(mText);
+        insideCardLayout.addView(mButton, layoutParams);
         mCard.addView(insideCardLayout);
         parentLayout.addView(mCard);
+    }
+
+    private void showFullScreenMapDialog(double latitude, double longitude) {
+        FullScreenMapDialogFragment dialogFragment = new FullScreenMapDialogFragment(latitude, longitude, getResources().getDrawable(R.drawable.locationicon));
+        dialogFragment.show(getSupportFragmentManager(), "FullScreenMapDialog");
     }
 }

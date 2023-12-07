@@ -8,7 +8,7 @@
     <string name="short_description_hint">Опис</string>
     <string name="chose_image_button_text">Оберіть зображення</string>
     <string name="submit_article_button_text">Додати статтю</string>
-    <string name="expand_map_button_text">Переглянути карту</string>
+    <string name="expand_map_button_text">Переглянути мапу</string>
 
     <string name="text_on_reset_screen">Відновлення паролю</string>
     <string name="text_on_register_screen">Реєстрація</string>
@@ -16,5 +16,7 @@
 
     <string name="go_to_reset_password_button_text"><u>Забули пароль?</u></string>
     <string name="go_to_register_button_text"><u>Ще не маєте акаунту?\nЗареєструйтесь!</u></string>
+
+    <string name="owner_text">Зв\'язок</string>
 
 </resources>

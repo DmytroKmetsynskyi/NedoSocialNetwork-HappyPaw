@@ -1,5 +1,7 @@
 package com.fernfog.happypaw;
 
+import java.util.Calendar;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -92,6 +94,13 @@ public class CreateArticle extends AppCompatActivity {
                 StorageReference imageRef = storageReference.child("images/"+image.getLastPathSegment());
                 imageRef.putFile(image);
 
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH) + 1;
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                String currentDate = year + "-" + month + "-" + day;
+
                 Map<String, Object> data = new HashMap<>();
                 data.put("image", imageRef.getName());
                 data.put("shortDescription", shortDescription.getText().toString());
@@ -99,8 +108,9 @@ public class CreateArticle extends AppCompatActivity {
                 data.put("status", false);
                 data.put("latitudeOfAnimal", userLocation.getLatitude());
                 data.put("longitudeOfAnimal", userLocation.getLongitude());
+                data.put("date", currentDate);
 
-                Toast.makeText(getApplicationContext(), "Latitude: " + userLocation.getLatitude() + " Longitude: " + userLocation.getLongitude(), Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), "Latitude: " + userLocation.getLatitude() + " Longitude: " + userLocation.getLongitude(), Toast.LENGTH_LONG).show();
 
                 db.collection("articles").add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

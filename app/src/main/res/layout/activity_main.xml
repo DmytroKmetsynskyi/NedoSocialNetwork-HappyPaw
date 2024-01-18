@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
+
+    android:id="@+id/swiperefresh"
+
 
     android:layout_height="match_parent"
     android:background="#D7D9D8"
@@ -11,108 +14,116 @@
 
     tools:context=".Main">
 
-    <ImageView
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-
-        android:src="@drawable/main_circle"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainToolBar" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/mainToolBar"
-
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="match_parent">
 
-        android:background="#E0A42B"
+        <ImageView
+            android:layout_width="350dp"
+            android:layout_height="350dp"
 
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/main_circle"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainToolBar" />
 
-        android:layout_marginBottom="5dp"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/mainToolBar"
 
-        android:fontFamily="@font/marmelad"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textColor="#FFF"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
 
-        android:textSize="30dp"
+            android:background="#E0A42B"
 
-        app:layout_constraintBottom_toBottomOf="@id/mainToolBar"
-        app:layout_constraintLeft_toLeftOf="@id/mainToolBar"
-        app:layout_constraintRight_toRightOf="@id/mainToolBar"
-        app:layout_constraintTop_toTopOf="@id/mainToolBar" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/addArticleButton"
-
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-
-        android:background="#00FFFFFF"
-
-        android:src="@drawable/add_circle"
-
-        app:layout_constraintBottom_toBottomOf="@id/mainToolBar"
-        app:layout_constraintRight_toRightOf="@id/mainToolBar"
-        app:layout_constraintTop_toTopOf="@id/mainToolBar" />
-
-    <ImageButton
-        android:id="@+id/logOutButton"
-
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-
-        android:background="#00FFFFFF"
-
-        android:src="@drawable/logout"
-
-        app:layout_constraintBottom_toBottomOf="@id/mainToolBar"
-        app:layout_constraintLeft_toLeftOf="@id/mainToolBar"
-        app:layout_constraintTop_toTopOf="@id/mainToolBar" />
-
-    <FrameLayout
-        android:id="@+id/frame_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainToolBar"></FrameLayout>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/bottomNavigationView"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:background="#E0A42B"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:tabIndicatorColor="#FFF"
-        app:tabTextColor="#FFF">
-
-        <com.google.android.material.tabs.TabItem
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search_text" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
+            android:layout_marginBottom="5dp"
+
+            android:fontFamily="@font/marmelad"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+
+            android:textSize="30dp"
+
+            app:layout_constraintBottom_toBottomOf="@id/mainToolBar"
+            app:layout_constraintLeft_toLeftOf="@id/mainToolBar"
+            app:layout_constraintRight_toRightOf="@id/mainToolBar"
+            app:layout_constraintTop_toTopOf="@id/mainToolBar" />
+
+        <ImageButton
+            android:id="@+id/addArticleButton"
+
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:background="#00FFFFFF"
+
+            android:src="@drawable/add_circle"
+
+            app:layout_constraintBottom_toBottomOf="@id/mainToolBar"
+            app:layout_constraintRight_toRightOf="@id/mainToolBar"
+            app:layout_constraintTop_toTopOf="@id/mainToolBar" />
+
+        <ImageButton
+            android:id="@+id/logOutButton"
+
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:background="#00FFFFFF"
+
+            android:src="@drawable/logout"
+
+            app:layout_constraintBottom_toBottomOf="@id/mainToolBar"
+            app:layout_constraintLeft_toLeftOf="@id/mainToolBar"
+            app:layout_constraintTop_toTopOf="@id/mainToolBar" />
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainToolBar"></FrameLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/bottomNavigationView"
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/analytics_text" />
 
-    </com.google.android.material.tabs.TabLayout>
+            android:background="#E0A42B"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabIndicatorColor="#FFF"
+            app:tabTextColor="#FFF">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_text" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/analytics_text" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

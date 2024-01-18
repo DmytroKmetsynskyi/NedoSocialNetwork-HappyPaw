@@ -60,98 +60,118 @@ public class CreateArticle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_article);
 
-        mImage = findViewById(R.id.ImageView);
-        chooseFileButton = findViewById(R.id.chooseImageFileButton);
-        submitButton = findViewById(R.id.submitArticleButton);
-        backToMainScreenButton = findViewById(R.id.arBackToMainButton);
-        shortDescription = findViewById(R.id.addShortDescription);
+        try {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        expandButton = findViewById(R.id.expandMapButton);
+            mAuth.getCurrentUser().reload();
 
-        /*map = findViewById(R.id.map);*/
+            mImage = findViewById(R.id.ImageView);
+            chooseFileButton = findViewById(R.id.chooseImageFileButton);
+            submitButton = findViewById(R.id.submitArticleButton);
+            backToMainScreenButton = findViewById(R.id.arBackToMainButton);
+            shortDescription = findViewById(R.id.addShortDescription);
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            expandButton = findViewById(R.id.expandMapButton);
 
-        backToMainScreenButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mIntent = new Intent(CreateArticle.this, Main.class);
-                startActivity(mIntent);
+            /*map = findViewById(R.id.map);*/
 
-                finish();
-            }
-        });
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        chooseFileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFile();
-            }
-        });
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StorageReference imageRef = storageReference.child("images/"+image.getLastPathSegment());
-                imageRef.putFile(image);
-
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH) + 1;
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                String currentDate = year + "." + month + "." + day;
-
-                Map<String, Object> data = new HashMap<>();
-                data.put("image", imageRef.getName());
-                data.put("shortDescription", shortDescription.getText().toString());
-                data.put("user" , mUser.getEmail());
-                data.put("status", false);
-                data.put("latitudeOfAnimal", userLocation.getLatitude());
-                data.put("longitudeOfAnimal", userLocation.getLongitude());
-                data.put("date", currentDate);
-
-                // Toast.makeText(getApplicationContext(), "Latitude: " + userLocation.getLatitude() + " Longitude: " + userLocation.getLongitude(), Toast.LENGTH_LONG).show();
-
-                db.collection("articles").add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(v.getContext(), "Success", Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
-
-        expandButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showFullScreenMapDialog();
-            }
-        });
-
-
-
-        if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+            backToMainScreenButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onSuccess(Location location) {
-                    if (location != null) {
-                        userLocation = location;
+                public void onClick(View v) {
+                    Intent mIntent = new Intent(CreateArticle.this, Main.class);
+                    startActivity(mIntent);
+
+                    finish();
+                }
+            });
+
+            chooseFileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openFile();
+                }
+            });
+
+
+
+
+            submitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    StorageReference imageRef = storageReference.child("images/"+image.getLastPathSegment());
+                    imageRef.putFile(image);
+
+                    Calendar calendar = Calendar.getInstance();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH) + 1;
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                    String currentDate = year + "." + month + "." + day;
+
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("image", imageRef.getName());
+                    data.put("shortDescription", shortDescription.getText().toString());
+                    data.put("user" , mUser.getEmail());
+                    data.put("status", false);
+                    data.put("latitudeOfAnimal", userLocation.getLatitude());
+                    data.put("longitudeOfAnimal", userLocation.getLongitude());
+                    data.put("date", currentDate);
+
+                    // Toast.makeText(getApplicationContext(), "Latitude: " + userLocation.getLatitude() + " Longitude: " + userLocation.getLongitude(), Toast.LENGTH_LONG).show();
+
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+
+                    if (currentUser == null) {
+
+                    } else {
+                        db.collection("articles").add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(v.getContext(), "Success", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+
+
+                }
+            });
+
+            expandButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showFullScreenMapDialog();
+                }
+            });
+
+
+
+            if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            userLocation = location;
 
                         /*com.fernfog.happypaw.Map mMap = new com.fernfog.happypaw.Map());
 
                         mMap.initMap();*/
-                    } else {
-                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                        finish();
+                        } else {
+                            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            finish();
+                        }
                     }
-                }
-            });
+                });
 
-        } else {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
-            finish();
+            } else {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
+                finish();
+            }
+        } catch (Exception e) {
+
         }
     }
 

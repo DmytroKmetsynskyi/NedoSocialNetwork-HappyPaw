@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -69,36 +71,52 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        View view = new View(getContext());
 
-        parentLayout = view.findViewById(R.id.parentLayout);
+        try {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        db.collection("articles").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Map<String, Object> map = document.getData();
+            mAuth.getCurrentUser().reload();
 
-                        String key1 = "shortDescription";
-                        String key2 = "image";
-                        String key3 = "user";
-                        String key4 = "date";
+            FirebaseUser currentUser = mAuth.getCurrentUser();
 
-                        String shortText = (String) map.get(key1);
-                        String image = (String) map.get(key2);
-                        String email = (String) map.get(key3);
-                        String date = (String) map.get(key4);
+            view = inflater.inflate(R.layout.fragment_list, container, false);
 
-                        Double latitude = (Double) map.get("latitudeOfAnimal");
-                        Double longitude = (Double) map.get("longitudeOfAnimal");
+            parentLayout = view.findViewById(R.id.parentLayout);
 
-                        addCardToView(shortText, image, parentLayout, latitude, longitude, email, date);
+            if (currentUser == null) {
+
+            } else {
+                db.collection("articles").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> map = document.getData();
+
+                                String key1 = "shortDescription";
+                                String key2 = "image";
+                                String key3 = "user";
+                                String key4 = "date";
+
+                                String shortText = (String) map.get(key1);
+                                String image = (String) map.get(key2);
+                                String email = (String) map.get(key3);
+                                String date = (String) map.get(key4);
+
+                                Double latitude = (Double) map.get("latitudeOfAnimal");
+                                Double longitude = (Double) map.get("longitudeOfAnimal");
+
+                                addCardToView(shortText, image, parentLayout, latitude, longitude, email, date);
+                            }
+                        } else
+                            Log.w("query", "Error getting documents", task.getException());
                     }
-                } else
-                    Log.w("query", "Error getting documents", task.getException());
+                });
             }
-        });
+        } catch (Exception e) {
+
+        }
 
         return view;
     }

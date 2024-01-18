@@ -16,6 +16,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -42,11 +44,27 @@ public class AnalyzeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_analyze, container, false);
+        View view = new View(getContext());
 
-        db = FirebaseFirestore.getInstance();
-        lineChart = view.findViewById(R.id.lineChart);
-        fetchDataAndUpdateChart();
+        try {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+            mAuth.getCurrentUser().reload();
+
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+
+            view = inflater.inflate(R.layout.fragment_analyze, container, false);
+
+            if (currentUser == null) {
+
+            } else {
+                db = FirebaseFirestore.getInstance();
+                lineChart = view.findViewById(R.id.lineChart);
+                fetchDataAndUpdateChart();
+            }
+        } catch (Exception e) {
+
+        }
 
         return view;
     }

@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,24 @@ public class Main extends AppCompatActivity {
 
         tabLayout.getTabAt(0).select();
         replaceFragment(new ListFragment());
+
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swiperefresh);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                switch (tabLayout.getSelectedTabPosition()) {
+                    case 0:
+                        replaceFragment(new ListFragment());
+                        break;
+                    case 1:
+                        replaceFragment(new AnalyzeFragment());
+                        break;
+                }
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

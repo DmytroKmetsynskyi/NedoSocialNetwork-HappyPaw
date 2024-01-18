@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Launch">
+    tools:context=".AnalyzeFragment">
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

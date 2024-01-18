@@ -99,7 +99,7 @@ public class CreateArticle extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH) + 1;
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                String currentDate = year + "-" + month + "-" + day;
+                String currentDate = year + "." + month + "." + day;
 
                 Map<String, Object> data = new HashMap<>();
                 data.put("image", imageRef.getName());

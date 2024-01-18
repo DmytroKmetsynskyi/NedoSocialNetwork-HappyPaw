@@ -2,12 +2,11 @@ package com.fernfog.happypaw;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.fragment.app.DialogFragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.DialogFragment;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.osmdroid.views.MapView;
@@ -16,10 +15,10 @@ import javax.annotation.Nullable;
 
 public class FullScreenMapDialogFragment extends DialogFragment {
 
-    private double latitude;
-    private double longitude;
+    private final double latitude;
+    private final double longitude;
     private MapView map;
-    private Drawable icon;
+    private final Drawable icon;
 
     public FullScreenMapDialogFragment(double latitude, double longitude, Drawable icon) {
         this.latitude = latitude;

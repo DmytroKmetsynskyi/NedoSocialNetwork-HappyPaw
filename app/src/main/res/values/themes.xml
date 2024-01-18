@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.HappyPaw" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimaryDark">#000000</item>

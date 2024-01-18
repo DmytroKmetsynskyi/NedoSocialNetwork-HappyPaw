@@ -1,16 +1,16 @@
 package com.fernfog.happypaw;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Launch extends AppCompatActivity {
 
-    private FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+    private final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register"
     android:background="#D7D9D8"
-    >
+    tools:context=".Register">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -14,10 +13,10 @@
 
         android:src="@drawable/register_circle"
 
-        app:layout_constraintTop_toBottomOf="@id/register_text"
+        app:layout_constraintBottom_toBottomOf="@id/submitRegister"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/submitRegister" />
+        app:layout_constraintTop_toBottomOf="@id/register_text" />
 
     <TextView
         android:id="@+id/register_text"
@@ -29,9 +28,9 @@
         android:fontFamily="@font/overpass_light"
         android:text="@string/text_on_register_screen"
 
-        android:textColor="#000"
-
         android:textAlignment="center"
+
+        android:textColor="#000"
         android:textSize="24dp"
 
         app:layout_constraintLeft_toLeftOf="parent"
@@ -44,39 +43,39 @@
 
         android:layout_width="230dp"
         android:layout_height="45dp"
-        android:background="@drawable/rounded_edit_text"
-
-        android:hint="@string/email_hint"
-        android:fontFamily="@font/overpass_light"
-        android:textAlignment="center"
-        android:textSize="10dp"
-        android:textStyle="bold"
-
         android:layout_marginTop="70dp"
 
-        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/rounded_edit_text"
+        android:fontFamily="@font/overpass_light"
+        android:hint="@string/email_hint"
+        android:textAlignment="center"
+        android:textSize="10dp"
+
+        android:textStyle="bold"
+
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/register_text" />
 
     <EditText
         android:id="@+id/registerPasswordField"
 
-        android:inputType="textPassword"
-
         android:layout_width="230dp"
+
         android:layout_height="45dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/rounded_edit_text"
 
-        android:hint="@string/password_hint"
         android:fontFamily="@font/overpass_light"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
         android:textAlignment="center"
         android:textSize="10dp"
+
         android:textStyle="bold"
 
-        android:layout_marginTop="25dp"
-
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/registerEmailField" />
 
     <Button

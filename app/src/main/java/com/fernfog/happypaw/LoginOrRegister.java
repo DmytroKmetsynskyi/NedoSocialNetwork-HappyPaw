@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginOrRegister extends AppCompatActivity {
 
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     Button submitLogin;
     EditText passwordField;

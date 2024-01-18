@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-       <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginOrRegister"
+    android:background="#D7D9D8"
 
-    android:background="#D7D9D8" >
+    tools:context=".LoginOrRegister">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -14,10 +14,10 @@
 
         android:src="@drawable/logincircle"
 
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/loginPasswordField"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/loginPasswordField" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/hello_text"
@@ -58,25 +58,25 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hello_text" />
 
-     <EditText
+    <EditText
         android:id="@+id/loginPasswordField"
 
-         android:inputType="textPassword"
-
         android:layout_width="230dp"
+
         android:layout_height="45dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/rounded_edit_text"
 
-        android:hint="@string/password_hint"
         android:fontFamily="@font/overpass_light"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
         android:textAlignment="center"
         android:textSize="10dp"
+
         android:textStyle="bold"
 
-        android:layout_marginTop="25dp"
-
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginEmailField" />
 
     <Button
@@ -102,11 +102,11 @@
     <Button
         android:id="@+id/goToResetPasswordButton"
 
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:fontFamily="@font/overpass_light"
 
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:fontFamily="@font/overpass_light"
 
         android:text="@string/go_to_reset_password_button_text"
         android:textAllCaps="false"
@@ -120,21 +120,21 @@
     <Button
         android:id="@+id/goToRegisterButton"
 
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/overpass_light"
-
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-
-        android:text="@string/go_to_register_button_text"
-        android:textAllCaps="false"
-        android:textColor="#003B94"
-        android:textSize="12dp"
 
         android:layout_marginBottom="80dp"
 
+        android:fontFamily="@font/overpass_light"
+        android:text="@string/go_to_register_button_text"
+        android:textAllCaps="false"
+        android:textColor="#003B94"
+
+        android:textSize="12dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

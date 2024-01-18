@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateArticle"
+    android:background="#D7D9D8"
 
-    android:background="#D7D9D8" >
+    tools:context=".CreateArticle">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -14,8 +14,8 @@
 
         android:src="@drawable/add_article_cricle_2"
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -34,9 +34,9 @@
 
         android:background="#E0A42B"
 
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/arBackToMainButton"
@@ -48,22 +48,22 @@
 
         android:src="@drawable/arrow_back"
 
+        app:layout_constraintBottom_toBottomOf="@id/articleToolBar"
         app:layout_constraintLeft_toLeftOf="@id/articleToolBar"
-        app:layout_constraintTop_toTopOf="@id/articleToolBar"
-        app:layout_constraintBottom_toBottomOf="@id/articleToolBar" />
+        app:layout_constraintTop_toTopOf="@id/articleToolBar" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="@string/app_name"
+        android:layout_marginBottom="5dp"
 
         android:fontFamily="@font/marmelad"
-        android:textSize="30dp"
-        android:textColor="#FFF"
+        android:text="@string/app_name"
         android:textAlignment="center"
+        android:textColor="#FFF"
 
-        android:layout_marginBottom="5dp"
+        android:textSize="30dp"
 
         app:layout_constraintBottom_toBottomOf="@id/articleToolBar"
         app:layout_constraintLeft_toLeftOf="@id/articleToolBar"
@@ -78,194 +78,166 @@
 
         app:cardCornerRadius="9dp"
 
-        app:layout_constraintTop_toBottomOf="@id/articleToolBar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" >
+        app:layout_constraintTop_toBottomOf="@id/articleToolBar">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+
+            android:paddingLeft="20dp"
+
+            android:paddingRight="20dp">
+
+            <ImageView
+                android:id="@+id/ImageView"
+                android:layout_width="175dp"
+
+                android:layout_height="175dp"
 
                 android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:scaleType="center" />
 
-                android:orientation="vertical" >
+            <EditText
+                android:id="@+id/addShortDescription"
 
-                <ImageView
-                    android:id="@+id/ImageView"
-                    android:scaleType="center"
+                android:layout_width="230dp"
 
-                    android:layout_marginTop="25dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
 
-                    android:layout_width="175dp"
-                    android:layout_height="175dp"
-                    android:layout_gravity="center" />
+                android:layout_marginTop="10dp"
 
-                <EditText
-                    android:id="@+id/addShortDescription"
+                android:background="@drawable/rounded_edit_add_text"
+                android:fontFamily="@font/overpass_light"
+                android:hint="@string/short_description_hint"
+                android:textAlignment="center"
+                android:textSize="12dp"
 
-                    android:layout_width="230dp"
+                android:textStyle="bold" />
 
-                    android:layout_height="130dp"
-                    android:layout_gravity="center"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/expandMapButton"
 
-                    android:layout_marginTop="10dp"
+                android:layout_width="215dp"
 
-                    android:background="@drawable/rounded_edit_add_text"
-                    android:fontFamily="@font/overpass_light"
-                    android:hint="@string/short_description_hint"
-                    android:textAlignment="center"
-                    android:textSize="12dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
 
-                    android:textStyle="bold" />
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#2B73E0"
+                android:fontFamily="@font/overpass_light"
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/expandMapButton"
+                android:text="@string/expand_map_button_text"
+                android:textAlignment="center"
+                android:textSize="12dp"
+                app:cornerRadius="8dp"
 
-                    android:layout_gravity="center"
+                app:icon="@drawable/mapicon"
+                app:iconGravity="end" />
 
-                    android:layout_width="215dp"
-                    android:layout_height="45dp"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/chooseImageFileButton"
 
-                    android:layout_marginTop="10dp"
-                    app:cornerRadius="8dp"
-                    android:backgroundTint="#2B73E0"
+                android:layout_width="215dp"
 
-                    android:fontFamily="@font/overpass_light"
-                    android:text="@string/expand_map_button_text"
-                    android:textAlignment="center"
-                    android:textSize="12dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
 
-                    app:icon="@drawable/mapicon"
-                    app:iconGravity="end"/>
+                android:layout_marginTop="10dp"
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/chooseImageFileButton"
+                android:backgroundTint="#2B73E0"
 
-                    android:layout_gravity="center"
+                android:fontFamily="@font/overpass_light"
+                android:text="@string/chose_image_button_text"
+                android:textAlignment="center"
+                android:textSize="12dp"
 
-                    android:layout_width="215dp"
-                    android:layout_height="45dp"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/add_photo"
 
-                    android:layout_marginTop="10dp"
+                app:iconGravity="end" />
 
-                    android:backgroundTint="#2B73E0"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/submitArticleButton"
 
-                    android:fontFamily="@font/overpass_light"
-                    android:text="@string/chose_image_button_text"
-                    android:textAlignment="center"
-                    android:textSize="12dp"
+                android:layout_width="215dp"
 
-                    app:icon="@drawable/add_photo"
-                    app:iconGravity="end"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
 
-                    app:cornerRadius="8dp" />
+                android:layout_marginTop="10dp"
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/submitArticleButton"
+                android:backgroundTint="#2B73E0"
 
-                    android:layout_gravity="center"
+                android:fontFamily="@font/overpass_light"
+                android:text="@string/submit_article_button_text"
+                android:textAlignment="center"
+                android:textSize="12dp"
 
-                    android:layout_width="215dp"
-                    android:layout_height="45dp"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/doneicon"
 
-                    android:layout_marginTop="10dp"
-
-                    android:backgroundTint="#2B73E0"
-
-                    android:fontFamily="@font/overpass_light"
-                    android:text="@string/submit_article_button_text"
-                    android:textAlignment="center"
-                    android:textSize="12dp"
-
-                    app:icon="@drawable/doneicon"
-                    app:iconGravity="end"
-
-                    app:cornerRadius="8dp" />
+                app:iconGravity="end" />
 
 
-
-            </LinearLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
 
+    <!--&lt;!&ndash;     &#45;&#45;!>-->
+
+
+    <!--    <com.google.android.material.button.MaterialButton
+
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
 
 
 
+            android:text="@string/chose_image_button_text"
+
+            app:layout_constraintTop_toBottomOf="@id/addShortDescription"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+    &lt;!&ndash;
+        <Button
+            android:id="@+id/chooseImageFileButton"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+
+            android:text="@string/chose_image_button_text"
+
+            app:layout_constraintTop_toBottomOf="@id/addShortDescription"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />&ndash;&gt;
+
+        <Button
 
 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
+            android:layout_marginTop="20dp"
 
+            android:text="@string/submit_article_button"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--&lt;!&ndash;     &#45;&#45;!>-->
-
-
-<!--    <com.google.android.material.button.MaterialButton
-
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="20dp"
-
-
-
-        android:text="@string/chose_image_button_text"
-
-        app:layout_constraintTop_toBottomOf="@id/addShortDescription"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
-&lt;!&ndash;
-    <Button
-        android:id="@+id/chooseImageFileButton"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="20dp"
-
-        android:text="@string/chose_image_button_text"
-
-        app:layout_constraintTop_toBottomOf="@id/addShortDescription"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />&ndash;&gt;
-
-    <Button
-
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="20dp"
-
-        android:text="@string/submit_article_button"
-
-        app:layout_constraintTop_toBottomOf="@id/chooseImageFileButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />-->
+            app:layout_constraintTop_toBottomOf="@id/chooseImageFileButton"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

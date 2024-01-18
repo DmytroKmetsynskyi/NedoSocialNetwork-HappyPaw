@@ -17,7 +17,7 @@ import org.osmdroid.views.overlay.Overlay;
 
 public class Map {
 
-    private MapView map;
+    private final MapView map;
     int mapViewId;
     double latitude;
     double longitude;
@@ -63,8 +63,8 @@ public class Map {
 
     private class CircleOverlay extends Overlay {
 
-        private GeoPoint center;
-        private float radius; // in meters
+        private final GeoPoint center;
+        private final float radius; // in meters
 
         CircleOverlay(GeoPoint center, float radius) {
             super();

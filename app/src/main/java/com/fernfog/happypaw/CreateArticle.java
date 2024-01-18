@@ -80,9 +80,6 @@ public class CreateArticle extends AppCompatActivity {
             backToMainScreenButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent mIntent = new Intent(CreateArticle.this, Main.class);
-                    startActivity(mIntent);
-
                     finish();
                 }
             });
